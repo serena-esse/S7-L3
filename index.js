@@ -1,3 +1,5 @@
+const arrCarrello = [];
+
 const getLibrary = async () => {
   try {
     let libreria = await fetch("https://striveschool-api.herokuapp.com/books", {
@@ -19,9 +21,17 @@ const getLibrary = async () => {
       <p class="card-text"><span class="bold">Price</span>: ${element.price}</p>
       <p class="card-text"><span class="bold">Category</span>: ${element.category}</p>
       <a class="btn btn-primary bottone">Scarta</a>
+      <a class="btn btn-warning bottone">Aggiungi al carrello</a>
       </div>
       </div>
       `;
+      });
+      const btns = document.getElementsByClassName("btn btn-primary bottone");
+      Array.from(btns).forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          const cardToRemove = event.target.closest(".card");
+          cardToRemove.parentNode.removeChild(cardToRemove);
+        });
       });
     } else {
       throw "c'è stato un errore dentro l'if";
